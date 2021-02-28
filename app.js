@@ -21,15 +21,21 @@ const fruit = new Fruit({
 //fruit.save();
 
 const peopleSchema = mongoose.Schema({
-    name: String,
+    name: {
+        type: String,
+        unique: true, 
+        required:[ true, "you have insert your name"]
+
+
+    },
     age: Number,
 });
 
 const People = mongoose.model('people', peopleSchema);
 
 const sam = new People({
-name: "Sam",
-age: 24,
+    name: "Sam",
+    age: 24,
 
 });
 
@@ -47,11 +53,12 @@ const rahim = new People({
 
 
 const heo = new People({
-    name: "Hyus",
+    
     age: 24,
 
 });
 
+heo.save();
 // People.insertMany([sam, ram, rahim, heo],
 
 //  function (err){
@@ -66,13 +73,20 @@ const heo = new People({
 //people.save();
 
 
-People.find(function(err, result){
-if(err){
-    console.log(err);
-}
-else{
-    console.log(result);
-}
+People.find(function (err, result) {
+    if (err) {
+        console.log(err);
+    }
+    else {
+        result.forEach(function (value) {
+          //  console.log(value);
+        }
+        );
+        mongoose.connection.close();
+
+
+
+    }
 
 
 });
