@@ -29,6 +29,7 @@ const peopleSchema = mongoose.Schema({
 
     },
     age: Number,
+    favouriteFruits: fruitSchema
 });
 
 const People = mongoose.model('people', peopleSchema);
@@ -53,12 +54,13 @@ const rahim = new People({
 
 
 const heo = new People({
-    
-    age: 24,
+    name: "sys",
+    age: 64,
+    favouriteFruits: fruit
 
 });
 
-heo.save();
+//heo.save();
 // People.insertMany([sam, ram, rahim, heo],
 
 //  function (err){
@@ -79,14 +81,34 @@ People.find(function (err, result) {
     }
     else {
         result.forEach(function (value) {
-          //  console.log(value);
+           console.log(value);
         }
         );
         mongoose.connection.close();
-
-
-
     }
-
-
 });
+
+
+// People.deleteMany({ name: 'Hyus'}, function (err){
+// if(err){
+//     console.log(err);
+// }
+// else{
+//     console.log("succesfully deleted");
+//     //mongoose.connection.close();
+// }
+
+// });
+
+People.updateOne({ name: 'John' }, {favouriteFruits: fruit}, function (err){
+
+if(err){
+    console.log(err);
+}
+else {
+console.log("Suceefully update");
+    mongoose.connection.close();
+}
+
+
+})
